@@ -40,10 +40,11 @@ class LoginPage extends StatelessWidget {
                   side: BorderSide(color: Colors.red)),
               child: Form(
                 key: provider.formKey,
-                child: Column(
+                child: ListView(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 40),
                       child: TextFormField(
                         controller: provider.emailField,
                         keyboardType: TextInputType.emailAddress,
@@ -72,14 +73,15 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 40),
                       child: TextFormField(
                         controller: provider.usernameField,
                         keyboardType: TextInputType.name,
                         validator: (value) {
                           if (value == '') {
                             return 'Isi field ini';
-                          } 
+                          }
                           return null;
                         },
                         // onChanged: (value) {
@@ -99,7 +101,8 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 40),
                       child: TextFormField(
                         controller: provider.passwordField,
                         keyboardType: TextInputType.visiblePassword,
@@ -144,11 +147,49 @@ class LoginPage extends StatelessWidget {
                         child: const Text(
                           'Login',
                           style: TextStyle(color: Colors.white),
+                        )),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        onPressed: () {
+                          // loginProcess();
+                          context.read<LoginProvider>().loginWithEmail(context);
+                        },
+                        child: const Text(
+                          'Login with Email (Firebase)',
+                          style: TextStyle(color: Colors.white),
+                        )),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        onPressed: () {
+                          // loginProcess();
+                          context
+                              .read<LoginProvider>()
+                              .registerWithEmail(context);
+                        },
+                        child: const Text(
+                          'Register New Email (Firebase)',
+                          style: TextStyle(color: Colors.white),
                         ))
                   ],
                 ),
               ),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+                onPressed: () =>
+                    context.read<LoginProvider>().loginWithGoogle(context),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                child: Text('Login with Google')),
           ),
           Text('Message : ${provider.messageError}')
         ],

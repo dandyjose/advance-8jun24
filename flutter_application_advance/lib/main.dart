@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_advance/UI/splash_screen.dart';
 import 'package:flutter_application_advance/provider/login_provider.dart';
@@ -5,7 +6,13 @@ import 'package:flutter_application_advance/provider/main_provider.dart';
 import 'package:flutter_application_advance/provider/product_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApps());
 }
 
