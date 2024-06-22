@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_advance/UI/phone_page.dart';
 import 'package:flutter_application_advance/provider/login_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -176,6 +177,24 @@ class LoginPage extends StatelessWidget {
                         },
                         child: const Text(
                           'Register New Email (Firebase)',
+                          style: TextStyle(color: Colors.white),
+                        )),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                        onPressed: () {
+                          // loginProcess();
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PhonePage(),
+                              ));
+                        },
+                        child: const Text(
+                          'Login with Phone (Firebase)',
                           style: TextStyle(color: Colors.white),
                         ))
                   ],
