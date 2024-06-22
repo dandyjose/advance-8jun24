@@ -1,0 +1,1 @@
+{"flutter":{"platforms":{"android":{"default":{"projectId":"coursenet-gs","appId":"1:27225445864:android:90d9346a355681e127c05d","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"coursenet-gs","configurations":{"android":"1:27225445864:android:90d9346a355681e127c05d","web":"1:27225445864:web:dcd690c6144da93f27c05d"}}}}}}
