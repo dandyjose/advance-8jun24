@@ -46,13 +46,12 @@ class MainPage extends StatelessWidget {
         floatingActionButton: provider.indexTab == 3
             ? FloatingActionButton(
                 onPressed: () {
-                  
-                              context.read<ProductProvider>().initialData(0);
-Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => FormProductPage(0),
-                    ));
+                  context.read<ProductProvider>().initialData(0);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FormProductPage(0),
+                      ));
                 },
                 child: Icon(Icons.add),
               )

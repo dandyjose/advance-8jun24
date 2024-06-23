@@ -39,9 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                // email == '-' ? 
-                LoginPage() 
-                // : MainPage(email, username),
+                email == '-' ? LoginPage() : MainPage(email, username),
           )),
     );
   }

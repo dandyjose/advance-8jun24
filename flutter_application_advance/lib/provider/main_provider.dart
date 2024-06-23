@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_advance/UI/login_page.dart';
 import 'package:flutter_application_advance/UI/product/detail_product_page.dart';
 import 'package:flutter_application_advance/commons/constant.dart';
+import 'package:flutter_application_advance/models/data_outlet.dart';
 import 'package:flutter_application_advance/models/product_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,9 +21,13 @@ class MainProvider extends ChangeNotifier {
   StateProduct stateDataProduct = StateProduct.initial;
   List<DataProduct> listProduct = <DataProduct>[];
   Data detailProduct = Data();
+  List<DataOutlet> listOutlet = <DataOutlet>[];
 
   void changeBody(int index) {
     indexTab = index;
+    if (indexTab == 2) {
+      getListOutlet();
+    }
     if (indexTab == 3) {
       getListProduct();
     }
@@ -113,6 +119,22 @@ class MainProvider extends ChangeNotifier {
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error : ${e.toString()}')));
+    }
+    notifyListeners();
+  }
+
+  void getListOutlet() async {
+    listOutlet = <DataOutlet>[];
+    CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection('outlet');
+    var result = await collectionReference.get();
+    var dataListOutlet = result.docs;
+    for (var item in dataListOutlet) {
+      var data = DataOutlet(
+          nameOutlet: item['name_outlet'],
+          startTime: item['hour_operation']['start_time'],
+          endTime: item['hour_operation']['end_time']);
+      listOutlet.add(data);
     }
     notifyListeners();
   }

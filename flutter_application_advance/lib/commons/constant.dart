@@ -15,9 +15,9 @@ List<TabItem> listBottomItem = [
       'Payment'),
   TabItem(
       const Icon(
-        Icons.pie_chart,
+        Icons.store,
       ),
-      'History Payment'),
+      'Outlet'),
   TabItem(
       const Icon(
         Icons.star,

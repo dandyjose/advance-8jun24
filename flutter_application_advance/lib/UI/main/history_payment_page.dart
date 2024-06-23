@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_advance/provider/main_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../commons/constant.dart';
 
@@ -7,9 +9,11 @@ class HistoryPaymentPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = context.watch<MainProvider>();
     return ListView.builder(
-      itemCount: listOrder.length,
+      itemCount: provider.listOutlet.length,
       itemBuilder: (context, index) {
+        var dataOutlet = provider.listOutlet[index];
         return Card(
           margin: const EdgeInsets.all(10),
           child: Padding(
@@ -18,12 +22,11 @@ class HistoryPaymentPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  listOrder[index].idTransaction,
+                  dataOutlet.nameOutlet ?? '',
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text(listOrder[index].product),
-                Text(listOrder[index].qty.toString()),
-                Text(listOrder[index].statusTransaction)
+                Text('Open Store : ${dataOutlet.startTime}'),
+                Text('Close Order : ${dataOutlet.endTime}'),
               ],
             ),
           ),
