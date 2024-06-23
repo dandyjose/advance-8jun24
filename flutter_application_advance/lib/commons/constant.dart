@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_advance/models/order_model.dart';
 import 'package:flutter_application_advance/models/tab_item.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 List<TabItem> listBottomItem = [
   TabItem(
@@ -64,3 +65,9 @@ List<String> listHobbies = ['Basketball', 'Soccer', 'Swim', 'Racing'];
 const String mainPage = 'Main Page xxxx';
 
 enum StateProduct { initial, loading, error, noConnection, noData, success }
+
+List<LatLng> listLocation = [
+  LatLng(-6.255922785156193, 106.61851755190807),
+  LatLng(-6.255273746451913, 106.62088441028745),
+  LatLng(-6.258489565678352, 106.61938546119774)
+];

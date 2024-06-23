@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_advance/commons/constant.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class MapPage extends StatefulWidget {
@@ -9,6 +12,35 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
+  LatLng? positionMe;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentLocation();
+  }
+
+  void getCurrentLocation() async {
+    var permissionLocation = await Geolocator.openLocationSettings();
+    if (permissionLocation) {
+      final GeolocatorPlatform _geolocatorPlatform =
+          GeolocatorPlatform.instance;
+      Position currentPosition = await _geolocatorPlatform.getCurrentPosition();
+      setState(() {
+        positionMe =
+            LatLng(currentPosition.latitude, currentPosition.longitude);
+      });
+    } else {
+      await Geolocator.openLocationSettings();
+    }
+  }
+
+  String calculateRadius(LatLng location) {
+    var radius = Geolocator.distanceBetween(positionMe!.latitude,
+        positionMe!.longitude, location.latitude, location.longitude);
+    return radius.toString();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,21 +48,24 @@ class _MapPageState extends State<MapPage> {
         title: Text('View Map'),
       ),
       body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-            target: LatLng(-6.256084902522864, 106.62023054574239), zoom: 16),
+        initialCameraPosition: CameraPosition(target: positionMe!, zoom: 16),
+        polylines: {},
         markers: {
           Marker(
-              markerId: MarkerId('marker-1'),
+              markerId: MarkerId('marker-0'),
               icon: BitmapDescriptor.defaultMarkerWithHue(
                   BitmapDescriptor.hueBlue),
-              position: LatLng(-6.255922785156193, 106.61851755190807),
-              infoWindow: InfoWindow(title: 'Location 1')),
-          Marker(
-              markerId: MarkerId('marker-2'),
-              icon: BitmapDescriptor.defaultMarkerWithHue(
-                  BitmapDescriptor.hueMagenta),
-              position: LatLng(-6.255273746451913, 106.62088441028745),
-              infoWindow: InfoWindow(title: 'Location 2'))
+              position: positionMe!,
+              infoWindow: InfoWindow(title: 'My Location')),
+          for (int index = 0; index < listLocation.length; index++)
+            Marker(
+                markerId: MarkerId('marker-${index + 1}'),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueAzure),
+                position: listLocation[index],
+                infoWindow: InfoWindow(
+                    title: 'Location ${index + 1}',
+                    snippet: calculateRadius(listLocation[index]))),
         },
       ),
     );
