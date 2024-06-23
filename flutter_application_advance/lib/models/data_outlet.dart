@@ -1,6 +1,7 @@
 class DataOutlet {
+  String? id;
   String? nameOutlet;
   String? startTime;
   String? endTime;
-  DataOutlet({this.nameOutlet, this.startTime, this.endTime});
+  DataOutlet({this.id, this.nameOutlet, this.startTime, this.endTime});
 }

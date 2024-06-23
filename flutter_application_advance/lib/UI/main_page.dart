@@ -3,6 +3,7 @@ import 'package:flutter_application_advance/UI/main/favorite_page.dart';
 import 'package:flutter_application_advance/UI/main/history_payment_page.dart';
 import 'package:flutter_application_advance/UI/main/payment_page.dart';
 import 'package:flutter_application_advance/UI/main/profile_page.dart';
+import 'package:flutter_application_advance/UI/outlet/form_outlet_page.dart';
 import 'package:flutter_application_advance/UI/product/form_product_page.dart';
 import 'package:flutter_application_advance/commons/color_pallete.dart';
 import 'package:flutter_application_advance/commons/constant.dart';
@@ -11,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../commons/widget/app_bar_custom.dart';
 import '../provider/product_provider.dart';
+import 'map_page.dart';
 
 class MainPage extends StatelessWidget {
   final String email;
@@ -43,15 +45,25 @@ class MainPage extends StatelessWidget {
                     label: e.label,
                     backgroundColor: primaryColor))
                 .toList()),
-        floatingActionButton: provider.indexTab == 3
+        floatingActionButton: (provider.indexTab == 3 || provider.indexTab == 2)
             ? FloatingActionButton(
                 onPressed: () {
-                  context.read<ProductProvider>().initialData(0);
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => FormProductPage(0),
-                      ));
+                  if (provider.indexTab == 2) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FormOutletPage(''),
+                        ));
+                  }
+
+                  if (provider.indexTab == 3) {
+                    context.read<ProductProvider>().initialData(0);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => FormProductPage(0),
+                        ));
+                  }
                 },
                 child: Icon(Icons.add),
               )
@@ -90,6 +102,17 @@ class MainPage extends StatelessWidget {
             onTap: () {
               context.read<MainProvider>().changeBody(10);
               Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.map_rounded),
+            title: const Text('Map'),
+            onTap: () {
+                Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MapPage(),
+        ));
             },
           ),
         ],

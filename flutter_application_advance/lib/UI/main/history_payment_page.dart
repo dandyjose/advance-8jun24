@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_advance/provider/main_provider.dart';
+import 'package:flutter_application_advance/provider/outlet_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../commons/constant.dart';
+import '../outlet/form_outlet_page.dart';
 
 class HistoryPaymentPage extends StatelessWidget {
   const HistoryPaymentPage({super.key});
@@ -27,6 +29,49 @@ class HistoryPaymentPage extends StatelessWidget {
                 ),
                 Text('Open Store : ${dataOutlet.startTime}'),
                 Text('Close Order : ${dataOutlet.endTime}'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: () => context
+                            .read<OutletProvider>()
+                            .moveDetailPage(context, dataOutlet.id ?? ''),
+                        icon: Column(
+                          children: [
+                            Icon(Icons.info, color: Colors.blue),
+                            Text('View')
+                          ],
+                        )),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    FormOutletPage(dataOutlet.id ?? ''),
+                              ));
+                        },
+                        icon: Column(
+                          children: [
+                            Icon(
+                              Icons.edit,
+                              color: Colors.green,
+                            ),
+                            Text('Edit')
+                          ],
+                        )),
+                    IconButton(
+                        onPressed: () => context
+                            .read<MainProvider>()
+                            .deleteOutlet(dataOutlet.id ?? ''),
+                        icon: Column(
+                          children: [
+                            Icon(Icons.delete, color: Colors.red),
+                            Text('Delete')
+                          ],
+                        ))
+                  ],
+                )
               ],
             ),
           ),

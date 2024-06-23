@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_advance/UI/splash_screen.dart';
 import 'package:flutter_application_advance/provider/login_provider.dart';
 import 'package:flutter_application_advance/provider/main_provider.dart';
+import 'package:flutter_application_advance/provider/outlet_provider.dart';
 import 'package:flutter_application_advance/provider/product_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,9 @@ class MyApps extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => ProductProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => OutletProvider(),
         ),
       ],
       child: MaterialApp(

@@ -131,11 +131,19 @@ class MainProvider extends ChangeNotifier {
     var dataListOutlet = result.docs;
     for (var item in dataListOutlet) {
       var data = DataOutlet(
+          id: item.id,
           nameOutlet: item['name_outlet'],
           startTime: item['hour_operation']['start_time'],
           endTime: item['hour_operation']['end_time']);
       listOutlet.add(data);
     }
     notifyListeners();
+  }
+
+  void deleteOutlet(String idDoc) {
+    CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection('outlet');
+    collectionReference.doc(idDoc).delete();
+    getListOutlet();
   }
 }
