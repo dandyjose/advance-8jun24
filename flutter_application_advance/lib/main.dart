@@ -5,6 +5,7 @@ import 'package:flutter_application_advance/UI/splash_screen.dart';
 import 'package:flutter_application_advance/commons/config_notification.dart';
 import 'package:flutter_application_advance/provider/login_provider.dart';
 import 'package:flutter_application_advance/provider/main_provider.dart';
+import 'package:flutter_application_advance/provider/map_provider.dart';
 import 'package:flutter_application_advance/provider/outlet_provider.dart';
 import 'package:flutter_application_advance/provider/product_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -53,6 +54,9 @@ class MyApps extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => OutletProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MapProvider(),
         ),
       ],
       child: MaterialApp(
