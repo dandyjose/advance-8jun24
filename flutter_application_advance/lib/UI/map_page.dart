@@ -21,8 +21,9 @@ class _MapPageState extends State<MapPage> {
   }
 
   void getCurrentLocation() async {
-    var permissionLocation = await Geolocator.openLocationSettings();
-    if (permissionLocation) {
+    var permissionLocation = await Geolocator.checkPermission();
+    if (permissionLocation == LocationPermission.always ||
+        permissionLocation == LocationPermission.whileInUse) {
       final GeolocatorPlatform _geolocatorPlatform =
           GeolocatorPlatform.instance;
       Position currentPosition = await _geolocatorPlatform.getCurrentPosition();

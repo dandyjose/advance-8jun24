@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_advance/UI/main_page.dart';
 import 'package:flutter_application_advance/UI/otp_page.dart';
+import 'package:flutter_application_advance/commons/config_notification.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -35,6 +36,8 @@ class LoginProvider extends ChangeNotifier {
     if (formKey.currentState!.validate()) {
       await _sharedPreferences.setString('username', usernameField.text);
       await _sharedPreferences.setString('email', emailField.text);
+      ConfigNotification()
+          .showNotification('Success Login', 'Welcome to ${emailField.text}');
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
